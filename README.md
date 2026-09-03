@@ -1,9 +1,9 @@
-[![hacs_badge](https://img.shields.io/badge/My_HACS-Azure_OpenAI_Conversation-41BDF5?logo=homeassistant&logoColor=white)](https://my.home-assistant.io/redirect/hacs_repository/?owner=joselcaguilar&repository=azure-openai-ha&category=integration)
+> **This is a personal fork of [joselcaguilar/azure-openai-ha](https://github.com/joselcaguilar/azure-openai-ha).**
+> See [Fork Changes](#fork-changes) for what was modified.
+
+[![hacs_badge](https://img.shields.io/badge/My_HACS-Azure_OpenAI_Conversation-41BDF5?logo=homeassistant&logoColor=white)](https://my.home-assistant.io/redirect/hacs_repository/?owner=GeraldPape&repository=azure-openai-ha&category=integration)
 [![Validate workflow](https://img.shields.io/github/actions/workflow/status/joselcaguilar/azure-openai-ha/validate.yaml?label=Validate&logo=GitHub)](https://github.com/joselcaguilar/azure-openai-ha/actions/workflows/validate.yaml)
 [![Lint workflow](https://img.shields.io/github/actions/workflow/status/joselcaguilar/azure-openai-ha/lint.yaml?label=Lint&logo=GitHub)](https://github.com/joselcaguilar/azure-openai-ha/actions/workflows/lint.yaml)
-![GitHub all releases](https://img.shields.io/github/downloads/joselcaguilar/azure-openai-ha/total?color=d9810f&label=Downloads&logo=GitHub)
-[![GitHub Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=%23fe8e86)](https://github.com/sponsors/joselcaguilar)
-[![BuyMeACoffee](https://img.shields.io/badge/-Buy_me_a%C2%A0coffee-gray?logo=buy-me-a-coffee)](https://www.buymeacoffee.com/joselcaguilar)
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/joselcaguilar/azure-openai-ha/main/.attachments/icon.png#gh-light-mode-only">
@@ -12,8 +12,30 @@
 
 <h3 align="center">
 
-[Azure OpenAI Conversation Custom Integration](https://github.com/joselcaguilar/azure-openai-ha) for Home Assistant
+[Azure OpenAI Conversation Custom Integration](https://github.com/GeraldPape/azure-openai-ha) for Home Assistant
 </h3>
+
+# Fork Changes
+
+Changes on top of upstream ([joselcaguilar/azure-openai-ha](https://github.com/joselcaguilar/azure-openai-ha)):
+
+### gpt-5.x compatibility ([`const.py`](custom_components/azure_openai_conversation/const.py), [`conversation.py`](custom_components/azure_openai_conversation/conversation.py))
+
+- **Default model changed** from `gpt-4o-mini` → `chat-fast` (maps to `gpt-4.1-nano`, 100K TPM/100 req/min vs the old 10K limit)
+- **Web search enabled** for `gpt-4.1-nano` and homelab deployment names (`chat`, `chat-fast`)
+- **gpt-5.x reasoning detection**: `model.startswith("o")` → `model.startswith(REASONING_MODEL_PREFIXES)` where `REASONING_MODEL_PREFIXES = ("o", "gpt-5")` — prevents sending unsupported `temperature`/`top_p`/`store` params to gpt-5.x models (which return `400 Unsupported parameter`)
+
+### Azure homelab setup (Sweden Central, `ai-homelab-swc`)
+
+| Deployment | Model | TPM | Use |
+|---|---|---|---|
+| `chat-fast` | gpt-4.1-nano | 100K | Default — HA voice/assist |
+| `chat` | gpt-5.6-sol | 50K | Advanced tasks |
+| `gpt-4o-mini` | gpt-4.1-mini | 10K | Legacy compat shim — do not use for HA |
+
+API Base URL: `https://ai-homelab-swc.services.ai.azure.com/`
+
+---
 
 # What This Is
 
