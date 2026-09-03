@@ -37,6 +37,51 @@ API Base URL: `https://ai-homelab-swc.services.ai.azure.com/`
 
 ---
 
+# Running Both Integrations
+
+You can run this integration **alongside** [Extended OpenAI Conversation](https://github.com/jekalmin/extended_openai_conversation) — they use different HA domains so there's no conflict.
+
+## When to use which
+
+| Capability | This fork | Extended OpenAI |
+|---|---|---|
+| Voice control (lights, switches, scenes) | ✅ | ✅ |
+| Azure Responses API + streaming | ✅ | ❌ (Chat Completions only) |
+| gpt-5.x support | ✅ | ❓ |
+| Create automations via voice | ❌ | ✅ |
+| Query entity history ("was the light on at 9am?") | ❌ | ✅ |
+| Call external REST APIs / scrape web | ❌ | ✅ |
+| SQLite history queries | ❌ | ✅ |
+
+## Setup
+
+### 1. Install Extended OpenAI Conversation via HACS
+
+Add custom repository: `jekalmin/extended_openai_conversation` → Integration
+
+Configure it with your Azure endpoint:
+- **API Key**: same key as this integration
+- **Base URL**: `https://ai-homelab-swc.services.ai.azure.com/openai`
+- **Model**: `chat-fast` (or `chat` for advanced tasks)
+
+> ⚠️ Extended uses the Chat Completions API — avoid gpt-5.x models until it adds Responses API support.
+
+### 2. Create two Assistants in Home Assistant
+
+Go to **Settings → Voice Assistants → Add Assistant**:
+
+| Assistant | Integration | Model | Use for |
+|---|---|---|---|
+| **Azure Voice** | This fork (Azure OpenAI Conversation) | `chat-fast` | Daily voice control, streaming responses |
+| **Azure Power** | Extended OpenAI Conversation | `chat-fast` | Automations, history queries, custom functions |
+
+### 3. Switch between assistants
+
+- In the **Assist** panel, tap the assistant name to switch
+- Assign different assistants to different voice devices (e.g. phone vs. speaker)
+
+---
+
 # What This Is
 
 This custom integration adds a conversation agent powered by [Azure OpenAI](https://azure.microsoft.com/products/cognitive-services/openai-service) in Home Assistant, it's based on the original [OpenAI Conversation integration](https://www.home-assistant.io/integrations/openai_conversation/) for Home Assistant.
