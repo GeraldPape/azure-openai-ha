@@ -59,6 +59,7 @@ from .const import (
     CONF_WEB_SEARCH_USER_LOCATION,
     DOMAIN,
     LOGGER,
+    REASONING_MODEL_PREFIXES,
     RECOMMENDED_CHAT_MODEL,
     RECOMMENDED_MAX_TOKENS,
     RECOMMENDED_REASONING_EFFORT,
@@ -407,7 +408,7 @@ class AzureOpenAIConversationEntity(
             if tools:
                 model_args["tools"] = tools
 
-            if model.startswith("o"):
+            if model.startswith(REASONING_MODEL_PREFIXES):
                 model_args["reasoning"] = {
                     "effort": options.get(
                         CONF_REASONING_EFFORT, RECOMMENDED_REASONING_EFFORT

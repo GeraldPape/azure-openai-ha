@@ -22,7 +22,7 @@ CONF_WEB_SEARCH_CITY = "city"
 CONF_WEB_SEARCH_REGION = "region"
 CONF_WEB_SEARCH_COUNTRY = "country"
 CONF_WEB_SEARCH_TIMEZONE = "timezone"
-RECOMMENDED_CHAT_MODEL = "gpt-4o-mini"
+RECOMMENDED_CHAT_MODEL = "chat-fast"
 RECOMMENDED_MAX_TOKENS = 150
 RECOMMENDED_REASONING_EFFORT = "low"
 RECOMMENDED_TEMPERATURE = 1.0
@@ -46,8 +46,15 @@ UNSUPPORTED_MODELS: list[str] = [
 WEB_SEARCH_MODELS: list[str] = [
     "gpt-4.1",
     "gpt-4.1-mini",
+    "gpt-4.1-nano",
     "gpt-4o",
     "gpt-4o-search-preview",
     "gpt-4o-mini",
     "gpt-4o-mini-search-preview",
+    # homelab deployment names
+    "chat",
+    "chat-fast",
 ]
+
+# Models that use reasoning mode (no temperature/top_p/store)
+REASONING_MODEL_PREFIXES: tuple[str, ...] = ("o", "gpt-5")
