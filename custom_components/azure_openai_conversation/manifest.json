@@ -1,14 +1,14 @@
 {
   "domain": "azure_openai_conversation",
-  "name": "Azure OpenAI Conversation",
+  "name": "Azure OpenAI Conversation (Homelab)",
   "after_dependencies": ["assist_pipeline", "intent"],
-  "codeowners": ["@joselcaguilar"],
+  "codeowners": ["@GeraldPape"],
   "config_flow": true,
   "dependencies": ["conversation"],
-  "documentation": "https://github.com/joselcaguilar/azure-openai-ha",
+  "documentation": "https://github.com/GeraldPape/azure-openai-ha",
   "integration_type": "service",
   "iot_class": "cloud_polling",
-  "issue_tracker": "https://github.com/joselcaguilar/azure-openai-ha/issues",
+  "issue_tracker": "https://github.com/GeraldPape/azure-openai-ha/issues",
   "requirements": ["openai>=2.15.0,<3.0.0"],
   "version": "2026.02.0"
 }
