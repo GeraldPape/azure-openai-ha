@@ -24,6 +24,7 @@ Changes on top of upstream ([joselcaguilar/azure-openai-ha](https://github.com/j
 - **Default model changed** from `gpt-4o-mini` → `chat-fast` (maps to `gpt-4.1-nano`, 100K TPM/100 req/min vs the old 10K limit)
 - **Web search enabled** for `gpt-4.1-nano` and homelab deployment names (`chat`, `chat-fast`)
 - **gpt-5.x reasoning detection**: `model.startswith("o")` → `model.startswith(REASONING_MODEL_PREFIXES)` where `REASONING_MODEL_PREFIXES = ("o", "gpt-5")` — prevents sending unsupported `temperature`/`top_p`/`store` params to gpt-5.x models (which return `400 Unsupported parameter`)
+- **`voluptuous-openapi` added to `requirements`** — HA 2026.x does not expose this core package to custom components automatically; adding it to the manifest makes HA's installer satisfy it (it detects the already-installed version and skips reinstall)
 
 ### Azure homelab setup (Sweden Central, `ai-homelab-swc`)
 
@@ -104,6 +105,7 @@ This is equivalent to the built-in [OpenAI Conversation integration](https://www
 | 4.1.y                             | 2025.10+               | - no need to specify - |
 | 4.2.y                             | 2025.12+               | - no need to specify - |
 | 4.3.y                             | 2026.2.1+              | - no need to specify - |
+| 2026.09.y (this fork)             | 2026.9+                | - no need to specify - |
 
 </center>
 
